@@ -1,6 +1,8 @@
 package com.devsuperior.dsvendas.controller;
 
 import com.devsuperior.dsvendas.dto.SaleDto;
+import com.devsuperior.dsvendas.dto.SaleSuccessDto;
+import com.devsuperior.dsvendas.dto.SaleSumDto;
 import com.devsuperior.dsvendas.service.SaleService;
 import com.devsuperior.dsvendas.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,18 @@ public class SaleController {
     @GetMapping
     public ResponseEntity<Page<SaleDto>> findAll(Pageable pageable) {
         Page<SaleDto> list = saleService.findAll(pageable);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/amount-by-seller")
+    public ResponseEntity<List<SaleSumDto>> amountGroupedBySeller() {
+        List<SaleSumDto> list = saleService.amountGroupedBySeller();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/success-by-seller")
+    public ResponseEntity<List<SaleSuccessDto>> successGroupedBySeller() {
+        List<SaleSuccessDto> list = saleService.successGroupedBySeller();
         return ResponseEntity.ok(list);
     }
 }
